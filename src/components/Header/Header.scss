@@ -280,11 +280,12 @@
 
         display: block;
         position: fixed;
+        top: 62px;
         left: 0;
         width: 35%;
         backdrop-filter: blur(2px);
         transition: all 1s;
-        height: 100%;
+        height: calc(100% - 62px);
       }
     }
 

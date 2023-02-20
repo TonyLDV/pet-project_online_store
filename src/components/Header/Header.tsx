@@ -7,7 +7,7 @@ import Logo from "../../icons/Logo";
 import User from "../../icons/User";
 import ButtonCount from "../ButtonCount";
 import UserLogModal from "../UserLogModal";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import ShoppingBag from "../../icons/ShoppingBag";
 import { OutsideClick, useTheme } from "../../hooks";
 import { useTypesSelector } from "../../hooks/StoreHooks";
@@ -42,7 +42,6 @@ const Header = () => {
   const { wishlist } = useTypesSelector((state) => state.wishlist);
 
   const [scrollValue, setScrollValue] = useState(0);
-  const [showHeader, setShowHeader] = useState(true);
 
   const [testOpen, setTestOpen] = useState(false);
 

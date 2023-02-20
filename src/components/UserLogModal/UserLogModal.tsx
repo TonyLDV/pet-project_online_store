@@ -7,8 +7,6 @@ import SignPage from "../../views/SignPage";
 import "./UserLogModal.scss";
 import { useTheme } from "../../hooks";
 
-type PropsT = {};
-
 type ISettings = {
   link: string;
   title: string;

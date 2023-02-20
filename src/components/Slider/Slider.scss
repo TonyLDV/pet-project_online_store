@@ -1,0 +1,36 @@
+.slider-container {
+  display: flex;
+  min-width: 50%;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+.slider {
+  overflow: hidden;
+  &__item {
+    transition: ease-in 0.5s;
+    transform: translate(250px);
+    &__active {
+      transition: ease-in 0.5s;
+    }
+  }
+  &__line {
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease 1s;
+  }
+  &__button {
+    background: #f7f7f7;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    :first-child {
+      margin-right: 20px;
+    }
+    :last-child {
+      margin-left: 20px;
+    }
+  }
+}

@@ -1,0 +1,62 @@
+.enter-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  padding: 40px 80px;
+  border-radius: 12px;
+  color: white;
+  transform: translate(-50%, -50%);
+  outline: none;
+
+  &__access-btn {
+    margin-top: 20px;
+    cursor: pointer;
+    background: #0f2027;
+    color: #f7f7f7;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01);
+    border: 1px solid white;
+    padding: 20px 50px;
+    &:before {
+      position: absolute;
+      content: "";
+      top: 15px;
+      left: 0;
+      right: 0;
+      z-index: -1;
+      height: 100%;
+      width: 100%;
+      transform: scale(0.9) translateZ(0);
+      filter: blur(15px);
+      background: linear-gradient(
+        to left,
+        #000000,
+        #1a1a1a,
+        #212121,
+        #474747,
+        #7a7a7a,
+        #9b9b9b,
+        #bababa,
+        #d6d6d6,
+        #ffffff
+      );
+      background-size: 200% 200%;
+      animation: animateGlow 1.25s linear infinite;
+    }
+  }
+}
+
+@keyframes animateGlow {
+  0% {
+    background-position: 0 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}

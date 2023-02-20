@@ -1,0 +1,16 @@
+.filter-item {
+  padding: 5px;
+  transition: all 0.33s;
+
+  :hover {
+    color: grey;
+  }
+
+  & > label {
+    padding-left: 6px;
+  }
+}
+
+.filter {
+  background: black;
+}

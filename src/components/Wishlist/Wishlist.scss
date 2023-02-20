@@ -1,0 +1,123 @@
+.wishlist {
+  &__container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: var(--text-color);
+  }
+  &__card {
+    width: 80%;
+    &__wall-header {
+      &__title {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 36px;
+        margin: 15px 0;
+      }
+    }
+  }
+
+  &__size-selector {
+    position: absolute;
+    color: black;
+    text-decoration: none;
+    text-transform: none;
+    top: 35px;
+    list-style-type: none;
+    &:focus {
+      color: #0071ae;
+    }
+  }
+
+  &__list {
+    padding-top: 20px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, 390px);
+    &__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 15px;
+      &__button {
+        width: 80%;
+        text-align: center;
+        background: #000;
+        padding: 8px 20px;
+        color: #e0e0e0;
+        border-radius: 14px;
+        transition: 0.5s;
+        cursor: pointer;
+        position: relative;
+        &:hover {
+          transition: 0.5s;
+          color: #aaaaaa;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1080px) {
+  .wishlist {
+    &__container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    &__card {
+      width: 100%;
+      &__wall-header {
+        width: 90%;
+        margin: 0 auto;
+        &__title {
+          font-size: 22px;
+        }
+      }
+    }
+
+    &__title {
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 36px;
+      margin: 15px 0;
+    }
+    &__list {
+      width: 100%;
+      padding-top: 20px;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      grid-template-columns: repeat(auto-fit, 380px);
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .wishlist {
+    &__list {
+      width: 100%;
+      padding-top: 20px;
+      display: grid;
+      margin: 0 auto;
+      grid-template-columns: repeat(auto-fit, 195px);
+      &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        &__button {
+          width: 80%;
+          text-align: center;
+          background: #000;
+          padding: 8px 12px;
+          color: #e0e0e0;
+          border-radius: 14px;
+        }
+      }
+    }
+  }
+}

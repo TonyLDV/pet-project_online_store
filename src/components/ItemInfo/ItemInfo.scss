@@ -1,0 +1,124 @@
+.item-info {
+  &__title {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+  &__type {
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+  &__price {
+    margin-bottom: 15px;
+  }
+  &__group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 25px;
+  }
+
+  &__grid {
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(2, 460px);
+  }
+
+  &__img {
+    height: 430px;
+    margin-bottom: 30px;
+    transition: 0.25s;
+    border-radius: 12px;
+    &:hover {
+      transition: 0.25s;
+      transform: scale(1.05);
+    }
+  }
+
+  &--slider {
+    display: none;
+  }
+  &__box {
+    border: 1px solid #6e6e6e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+  &__disabled {
+    visibility: hidden;
+  }
+  &__add {
+    border-radius: 12px;
+    color: white;
+    background: black;
+    padding: 14px 28px;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 4px 4px 4px #000000;
+    &:hover {
+      transition: all 0.25s;
+      transform: translateY(4px) translateZ(4px);
+      box-shadow: none;
+    }
+  }
+
+  &__container {
+    width: 75%;
+    margin: 0 auto;
+    padding-top: 40px;
+    color: var(--text-color);
+    &__content {
+      display: flex;
+    }
+
+    &__left {
+      width: 70%;
+    }
+    &__right {
+      width: 30%;
+    }
+  }
+
+  &__slider-mobile {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .item-info {
+    &__container {
+      width: 100%;
+      padding-top: 25px;
+      &__right {
+        width: fit-content;
+        padding: 10px 10px;
+      }
+      &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+      }
+    }
+    &--slider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    &__grid {
+      display: none;
+    }
+
+    &__slider-mobile {
+      display: block;
+      width: 100%;
+      &__img {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+.signup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 20px;
+  align-items: center;
+  &__join-btn {
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 40px;
+    background: black;
+    color: white;
+    padding: 15px 50px;
+    border-radius: 20px;
+    box-shadow: 4px 4px 3px #6e6e6e;
+    transition: all 0.25s;
+    &:active {
+      transition: all 0.25s;
+      transform: translateY(4px) translateZ(4px);
+      box-shadow: none;
+    }
+  }
+
+  &__register-form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    &__item {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      &__input {
+        border: 2px solid black;
+        border-radius: 8px;
+        margin-top: 10px;
+        height: 46px;
+        font-size: 20px;
+        padding-left: 10px;
+        &:focus {
+          outline: none;
+        }
+        &::placeholder {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  &__options {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    width: 90%;
+    &__item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      text-align: center;
+      padding: 10px 20px;
+      border: 2px solid #6e6e6e;
+      cursor: pointer;
+      box-shadow: 4px 4px 3px #6e6e6e;
+      transition: all 0.25s;
+      border-radius: 15px;
+      &:active:active {
+        transition: all 0.25s;
+        transform: translateY(4px) translateZ(4px);
+        box-shadow: none;
+      }
+      & > div {
+        height: 26px;
+      }
+      & > span {
+        margin-left: 15px;
+      }
+      &:hover {
+        border: 2px solid #1c1b1b;
+        transition: all 0.25s;
+        box-shadow: 4px 4px 3px #1c1b1b;
+      }
+    }
+  }
+}

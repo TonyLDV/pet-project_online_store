@@ -1,0 +1,136 @@
+.cart-nav {
+  color: white;
+  text-decoration: none;
+}
+
+.successful-add {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  outline: none;
+  padding: 20px 30px;
+  border-radius: 8px;
+  &__title {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+    min-width: 940px;
+  }
+
+  &__cart-info {
+    min-width: 45%;
+    &__details {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__info-content {
+    display: flex;
+    min-width: 45%;
+
+    &__title {
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+
+    &__img {
+      height: 200px;
+      padding-right: 20px;
+    }
+  }
+  &__cart-nav {
+    margin-top: 10px;
+    padding: 10px;
+    color: white;
+    background: black;
+    text-decoration: none;
+    box-shadow: 4px 4px 4px black;
+    cursor: pointer;
+    border-radius: 8px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    transition: all 0.25s;
+
+    &:active {
+      color: #6e6e6e;
+      transition: all 0.25s;
+      transform: translateY(4px) translateZ(4px);
+      box-shadow: none;
+    }
+  }
+  &__close-btn {
+    cursor: pointer;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: white;
+    border: 2px solid black;
+    font-size: 28px;
+    text-align: center;
+    padding: 2px 7px;
+  }
+}
+
+.line {
+  margin: 15px 0;
+  height: 1px;
+  background: black;
+}
+
+.row {
+  width: 2px;
+  background: #6e6e6e;
+}
+
+@media screen and (max-width: 768px) {
+  .successful-add {
+    padding: 20px 10px;
+    width: 95%;
+    top: 50%;
+    left: 50%;
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 100%;
+    }
+
+    &__cart-info {
+      &__details {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    &__info-content {
+      display: flex;
+      min-width: 80%;
+
+      &__title {
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      &__img {
+        height: 90px;
+        padding-right: 20px;
+      }
+    }
+    &__close-btn {
+      right: 20px;
+      top: -25px;
+    }
+  }
+}

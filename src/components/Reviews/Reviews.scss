@@ -1,0 +1,41 @@
+.reviews {
+  &__star-rating {
+    & > span {
+      color: var(--text-color);
+    }
+    iconEmpty {
+      color: white;
+    }
+  }
+  &__title {
+    font-size: 20px;
+    cursor: pointer;
+    margin: 25px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__list {
+    &__item {
+      margin-bottom: 30px;
+      &__title {
+        font-size: 16px;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      &__review {
+      }
+      &__username {
+        color: #6e6e6e;
+      }
+      &__group {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+    }
+    &__closed {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.wrapper-grid-selector {
+  display: grid;
+  margin-left: 20px;
+  justify-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(3, 60px);
+  gap: 10px;
+}
+
+.colour-selector {
+  cursor: pointer;
+  &__colour {
+    height: 28px;
+    width: 28px;
+    border-radius: 25%;
+    box-shadow: 3px 3px 3px #aaaaaa;
+  }
+  &__title {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    margin-top: 10px;
+    font-size: 14px;
+    &:hover {
+      color: grey;
+    }
+  }
+}

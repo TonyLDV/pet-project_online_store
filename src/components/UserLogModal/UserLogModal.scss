@@ -24,6 +24,21 @@
     border: 2px solid black;
   }
 
+  &__options {
+    margin: 20px 0 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__theme {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    :last-child {
+      margin-left: 10px;
+    }
+  }
+
   &__button {
     margin: 10px 0;
     font-size: 17px;

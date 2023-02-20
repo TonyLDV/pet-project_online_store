@@ -79,6 +79,12 @@ i18next
               },
               sales: { link: "#", title: "Мої знижки", id: 2, disabled: true },
               refund: { link: "#", title: "Повернення", id: 3, disabled: true },
+              settings: {
+                link: "#",
+                title: "Налаштування",
+                id: 4,
+                disabled: true,
+              },
             },
           },
 
@@ -201,6 +207,7 @@ i18next
                 disabled: true,
               },
               refund: { link: "#", title: "Return", id: 3, disabled: true },
+              settings: { link: "#", title: "Settings", id: 4, disabled: true },
             },
           },
 

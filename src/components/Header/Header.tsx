@@ -91,15 +91,19 @@ const Header = () => {
           </NavLink>
         </div>
 
-        <div className="header__navbar-container">
-          <div
-            onClick={() => setTestOpen(false)}
-            className={testOpen ? "header__navbar__blur" : ""}
-          />
+        <div
+          onClick={() => setTestOpen(false)}
+          className={testOpen ? "header__navbar__blur" : ""}
+        />
 
-          <div
-            className={testOpen ? "header__navbar__active" : "header__navbar"}
-          >
+        <div
+          className={
+            testOpen
+              ? "header__navbar-container__active"
+              : "header__navbar-container"
+          }
+        >
+          <div className={"header__navbar"}>
             <div className="header__navbar__item-list">
               {Object.keys(navbar).map((nav) => (
                 <NavLink
@@ -194,22 +198,6 @@ const Header = () => {
 
         <div className="header__icon" onClick={showSidebar}>
           <span />
-        </div>
-
-        <div className="theme-switcher" onClick={themeSwitcher} />
-
-        <div className="language-switcher">
-          {Object.keys(lngs).map((lng) => (
-            <button
-              className={"header__language-switcher__item"}
-              key={lng}
-              type="submit"
-              onClick={() => i18n.changeLanguage(lng)}
-              disabled={i18n.resolvedLanguage === lng}
-            >
-              {lngs[lng].language}
-            </button>
-          ))}
         </div>
       </div>
     </div>

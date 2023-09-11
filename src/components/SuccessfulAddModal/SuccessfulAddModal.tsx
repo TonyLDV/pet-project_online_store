@@ -1,9 +1,10 @@
 import React, { FC, useState } from "react";
 import { Modal } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../../hooks/StoreHooksToolkit/toolkit";
 
 import "./SuccessfulAddModal.scss";
-import { useTypesSelector } from "../../hooks/StoreHooks";
-import { NavLink } from "react-router-dom";
+import { cartSelector } from "../../storeToolkit/slices/cartSlice";
 
 type PropsT = {
   array: any;
@@ -12,8 +13,8 @@ type PropsT = {
 };
 
 const SuccessfulAddModal: FC<PropsT> = ({ array, openState, onCloseClick }) => {
-  const [open, setOpen] = useState(openState);
-  const { cart, totalPrice } = useTypesSelector((state) => state.cart);
+  const [open, setOpen] = useState<boolean>(openState);
+  const { totalPrice, itemsCount } = useAppSelector(cartSelector);
 
   const handleClose = (state: boolean) => {
     setOpen(state);
@@ -50,7 +51,7 @@ const SuccessfulAddModal: FC<PropsT> = ({ array, openState, onCloseClick }) => {
             <div className="successful-add__cart-info__details">
               <p>Ваш кошик:</p>
 
-              <p>{cart.length}</p>
+              <p>{itemsCount}</p>
             </div>
 
             <div className="successful-add__cart-info__details">

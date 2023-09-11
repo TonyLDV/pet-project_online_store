@@ -14,6 +14,7 @@ button {
   cursor: pointer;
   background: none;
   border: none;
+  color: white;
 }
 
 html[data-theme="dark"] {
@@ -37,4 +38,15 @@ html[data-theme="light"] {
   border-radius: 8px;
   cursor: pointer;
   padding: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

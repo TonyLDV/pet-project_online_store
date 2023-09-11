@@ -1,62 +1,20 @@
-import React, { useState } from "react";
-import { useTypesSelector } from "../../hooks/StoreHooks";
+import React from "react";
 
 import ItemModel from "../ItemModel";
-
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useAction } from "../../hooks/StoreHooks/useAction";
-
+import { useAppSelector } from "../../hooks/StoreHooksToolkit/toolkit";
 import "./Wishlist.scss";
+import { wishlistSelector } from "../../storeToolkit/slices/wishlistSlice";
 
 const Wishlist = () => {
-  const [selectSize, setSelectSize] = useState(false);
-  const { wishlist } = useTypesSelector((state) => state.wishlist);
-  const { createCart } = useAction();
   const { t } = useTranslation();
 
-  return (
-    <div className="wishlist__container">
-      {wishlist.length ? (
-        <div className="wishlist__container">
-          <div className="wishlist__card">
-            <div className="wishlist__card__wall-header">
-              <div className="wishlist__card__wall-header__title">
-                Мій список бажаннь
-              </div>
+  const { wishlist } = useAppSelector(wishlistSelector);
 
-              <div>
-                {t("bag.key1_interval", {
-                  postProcess: "interval",
-                  count: wishlist.length,
-                })}
-              </div>
-            </div>
-
-            <div className="wishlist__list">
-              {wishlist.map(({ id, wish, url, price, title, size }) => (
-                <div className="wishlist__list__item" key={id}>
-                  <ItemModel
-                    url={url}
-                    price={price}
-                    title={title}
-                    id={id}
-                    wish={wish}
-                  />
-
-                  <div
-                    className="wishlist__list__item__button"
-                    /*onClick={() => createCart({ url, price, title, id, wish })}*/
-                    onClick={() => setSelectSize(!selectSize)}
-                  >
-                    {size ? "Добавити кошик" : "Оберіть розмір"}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      ) : (
+  if (!wishlist.length) {
+    return (
+      <div className="wishlist__container">
         <div className="bag__empty">
           <div className="bag__title">{t("wishlist.emptyWishlist")}</div>
 
@@ -68,7 +26,33 @@ const Wishlist = () => {
             </NavLink>
           </div>
         </div>
-      )}
+      </div>
+    );
+  }
+  return (
+    <div className="wishlist__container">
+      <div className="wishlist__card">
+        <div className="wishlist__card__wall-header">
+          <div className="wishlist__card__wall-header__title">
+            Мій список бажаннь
+          </div>
+
+          <div>
+            {t("bag.key1_interval", {
+              postProcess: "interval",
+              count: wishlist.length,
+            })}
+          </div>
+        </div>
+
+        <div className="wishlist__list">
+          {wishlist.map((item) => (
+            <div className="wishlist__list__item" key={item.id}>
+              <ItemModel item={item} />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

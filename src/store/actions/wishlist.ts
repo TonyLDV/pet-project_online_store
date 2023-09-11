@@ -18,6 +18,7 @@ export function createWish(item: any) {
     wishlist.push(itemToAdd);
 
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
   }
 
   return {

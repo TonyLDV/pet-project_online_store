@@ -1,8 +1,11 @@
 export enum LocalStorageKey {
-  SHOES = "shoes",
   CART = "cart",
+  SHOES = "shoes",
+  USERS = "users",
   PRICE = "price",
   WISHLIST = "wishlist",
+  ACTIVE_USER = "active_user",
+  AUTH = "auth",
 }
 
 export type MultipleParams = {
@@ -36,9 +39,9 @@ class LocaleStorage {
     }
   }
 
-  setItem(key: LocalStorageKey): any {
+  setItem(key: LocalStorageKey, value: any): any {
     try {
-      const result = localStorage.setItem(`${key}`, JSON.stringify(key));
+      const result = localStorage.setItem(`${key}`, JSON.stringify(value));
     } catch (err) {
       console.error(err);
     }

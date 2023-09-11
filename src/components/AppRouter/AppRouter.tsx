@@ -1,31 +1,30 @@
-import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import React from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 
-import { privateRoutes, publicRoutes } from "../../store/routes";
-import { useTypesSelector } from "../../hooks/StoreHooks";
-import { useAction } from "../../hooks/StoreHooks/useAction";
-import EnterModal from "../EnterModal";
+import { publicRoutes } from "../../store/routes";
+import SignPage from "../../views/SignPage";
+import { useAppSelector } from "../../hooks/StoreHooksToolkit/toolkit";
+import { userSelector } from "../../storeToolkit/slices/usersSlice";
 
 const AppRouter = () => {
-  const { auth } = useTypesSelector((state) => state.auth);
+  const { auth } = useAppSelector(userSelector);
+  let location = useLocation();
 
-  /*  if (!auth) {
-    return (
-      <Routes>
-        <Route path="/" element={<EnterModal setOpener={!auth} />} />
-        {privateRoutes.map(({ path, Component, ...params }) => (
+  let state = location.state as { backgroundLocation?: Location };
+
+  return (
+    <div>
+      <Routes location={state?.backgroundLocation || location}>
+        {publicRoutes.map(({ path, Component, ...params }) => (
           <Route key={path} path={path} element={<Component {...params} />} />
         ))}
       </Routes>
-    );
-  }*/
-
-  return (
-    <Routes>
-      {publicRoutes.map(({ path, Component, ...params }) => (
-        <Route key={path} path={path} element={<Component {...params} />} />
-      ))}
-    </Routes>
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route path="login" element={<SignPage />} />
+        </Routes>
+      )}
+    </div>
   );
 };
 

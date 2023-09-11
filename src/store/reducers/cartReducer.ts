@@ -9,6 +9,7 @@ const initialState: CartState = {
   totalPrice: localStorage.getItem("totalPrice")
     ? JSON.parse(<string>localStorage.getItem("totalPrice"))
     : 0,
+  itemsCount: 0,
 };
 
 export const cartReducer = (
@@ -30,7 +31,6 @@ export const cartReducer = (
           totalPrice: tPrice,
           cart: state.cart.concat({
             ...payload,
-            wish: true,
           }),
         };
       }

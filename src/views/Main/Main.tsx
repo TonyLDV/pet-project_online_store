@@ -24,7 +24,9 @@ const mainSlides = [
 const Main = () => {
   return (
     <div className="main">
-      <SlideSwiper sliderType="img" delay={7000} slides={mainSlides} />
+      <div className="main__img-container">
+        <SlideSwiper sliderType="img" delay={7000} slides={mainSlides} />
+      </div>
     </div>
   );
 };

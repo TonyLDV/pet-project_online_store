@@ -1,55 +1,80 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LogIn from "../../components/LogIn";
 import SignUp from "../../components/SignUp";
-import { LOGIN_ROUTE, SIGNUP_ROUTE } from "../../utils/constRoutes";
 
 import "./SignPage.scss";
 import { Modal } from "@mui/material";
+import CloseIcon from "../../icons/CloseIcon";
+import {
+  useActions,
+  useAppSelector,
+} from "../../hooks/StoreHooksToolkit/toolkit";
+import { userSelector } from "../../storeToolkit/slices/usersSlice";
 
-const SignPage = () => {
-  const [exactPage, setExactPage] = useState("SignUp");
+type PropsT = {
+  type?: string;
+};
+
+const SignPage: FC<PropsT> = ({ type }) => {
+  const [exactPage, setExactPage] = useState(type || "login");
   const [open, setOpen] = useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const { error } = useAppSelector(userSelector);
+  const { resetError } = useActions();
+
+  const navigate = useNavigate();
+
+  const navigation = () => {
+    setOpen(false);
+    if (error) {
+      resetError();
+    }
+    navigate(-1);
+  };
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={navigation}>
       <div className="sign-container">
         <div className="sign__options">
           <div
             className={
-              exactPage === "SignUp"
+              exactPage === "signup"
                 ? "sign__options__item__active"
                 : "sign__options__item"
             }
-            onClick={() => setExactPage("SignUp")}
+            onClick={() => setExactPage("signup")}
           >
             <p> Sign Up</p>
           </div>
 
           <div
             className={
-              exactPage === "LogIn"
+              exactPage === "login"
                 ? "sign__options__item__active"
                 : "sign__options__item"
             }
-            onClick={() => setExactPage("LogIn")}
+            onClick={() => setExactPage("login")}
           >
             Log In
           </div>
         </div>
 
-        {exactPage === "LogIn" ? (
-          <div onClick={() => setExactPage("LogIn")}>
-            <LogIn />
-          </div>
-        ) : (
-          <div onClick={() => setExactPage("SignUp")}>
-            <SignUp />
-          </div>
-        )}
+        <div
+          onClick={() =>
+            setExactPage(exactPage === "login" ? "login" : "signup")
+          }
+        >
+          {exactPage === "login" ? (
+            <LogIn onLogInClick={navigation} />
+          ) : (
+            <SignUp onSignUpClick={navigation} />
+          )}
+        </div>
+
+        <div className="sign__close-button" onClick={navigation}>
+          <CloseIcon />
+        </div>
       </div>
     </Modal>
   );

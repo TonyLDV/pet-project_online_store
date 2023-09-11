@@ -3,15 +3,16 @@ export interface CartState {
   loading: boolean;
   error: null | string;
   totalPrice: number;
+  itemsCount: number;
 }
-interface ICart {
+export interface ICart {
   id: number;
   price: number;
   title: string;
   url: string;
-  wish: boolean;
   size: number;
   bucketId: string;
+  quantity?: number;
   region?: string;
 }
 

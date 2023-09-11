@@ -1,45 +1,79 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { NavLink } from "react-router-dom";
-import SignPage from "../../views/SignPage";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import "./UserLogModal.scss";
 import { useTheme } from "../../hooks";
+import {
+  useActions,
+  useAppSelector,
+} from "../../hooks/StoreHooksToolkit/toolkit";
+import { userSelector } from "../../storeToolkit/slices/usersSlice";
 
 type ISettings = {
   link: string;
   title: string;
   id: number;
   disabled?: boolean;
+  to: string;
 };
 
 const UserLogModal = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const { theme, setTheme } = useTheme();
+  const navigate = useNavigate();
+
+  const { auth } = useAppSelector(userSelector);
+  const { resetActiveUser } = useActions();
+
+  const location = useLocation();
 
   const { t, i18n } = useTranslation();
+
+  const handleLogClick = () => {
+    if (!auth) {
+      setOpen(!open);
+    } else {
+      resetActiveUser();
+      /*navigate(-1);*/
+    }
+  };
 
   const arr: Record<any, ISettings> = t("userLogModal.settings", {
     returnObjects: true,
   });
 
   const themeSwitcher = () => {
-    theme == "light" ? setTheme("dark") : setTheme("light");
+    setTheme(theme === "light" ? "dark" : "light");
   };
 
   return (
     <div className="user-log">
-      {Object.keys(arr).map((i) =>
-        arr[i].disabled ? (
-          <div key={arr[i].id} className="user-log__button  ">
-            {arr[i].title}
-          </div>
-        ) : (
-          <div className="user-log__button" key={arr[i].id}>
-            {arr[i].title}
-          </div>
-        )
+      {auth ? (
+        <div className="user-log__navigation">
+          {Object.keys(arr).map((i) =>
+            arr[i].disabled ? (
+              <NavLink
+                to={arr[i].to}
+                key={arr[i].id}
+                className="user-log__button"
+              >
+                {arr[i].title}
+              </NavLink>
+            ) : (
+              <NavLink
+                to={arr[i].to}
+                className="user-log__button"
+                key={arr[i].id}
+              >
+                {arr[i].title}
+              </NavLink>
+            )
+          )}
+        </div>
+      ) : (
+        <div>Для отримання додаткових функцій потрібно авторизуватися</div>
       )}
       <span className="user-log__arrow" />
 
@@ -70,15 +104,21 @@ const UserLogModal = () => {
         </div>
       </div>
 
-      <button className="user-log__enter" onClick={() => setOpen(!open)}>
-        {t("signIn")}
+      <button className="user-log__enter" onClick={handleLogClick}>
+        {auth ? (
+          <p>{t("logOut")}</p>
+        ) : (
+          <NavLink
+            className="user-log__enter__button"
+            to="login"
+            state={{ backgroundLocation: location }}
+          >
+            <p>{t("signIn")}</p>
+          </NavLink>
+        )}
       </button>
-      {open && <SignPage />}
     </div>
   );
 };
 
 export default UserLogModal;
-function changeLanguage(arg0: string): void {
-  throw new Error("Function not implemented.");
-}

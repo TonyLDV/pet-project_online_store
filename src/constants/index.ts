@@ -1,6 +1,10 @@
 export enum ShoesType {
-  MEN = "men",
+  MEN = "man",
   WOMEN = "women",
+}
+export enum SignType {
+  SIGNUP = "signup",
+  LOGIN = "login",
 }
 
 export const defaultShoes = [
@@ -115,6 +119,38 @@ export const defaultShoes = [
     url: "https://static.footshop.com/752146-full_product/192808.jpg",
     wish: false,
     type: ShoesType.MEN,
+  },
+  {
+    id: 14,
+    price: 110.0,
+    title: "Adidas  Forum 84 Low",
+    url: "https://static.footshop.com/752146-full_product/192808.jpg",
+    wish: false,
+    type: ShoesType.MEN,
+  },
+  {
+    id: 15,
+    price: 100.0,
+    title: "Adidas Terrex Voyager 21",
+    url: "https://static.footshop.com/759853-full_product/193795.jpg",
+    wish: false,
+    type: ShoesType.MEN,
+  },
+  {
+    id: 16,
+    price: 110.0,
+    title: "Adidas  Forum 84 Low",
+    url: "https://static.footshop.com/752146-full_product/192808.jpg",
+    wish: false,
+    type: ShoesType.WOMEN,
+  },
+  {
+    id: 17,
+    price: 149.99,
+    title: "Nike Air Max 1",
+    url: "https://static.footshop.com/740440-full_product/171394.jpg",
+    wish: false,
+    type: ShoesType.WOMEN,
   },
 ];
 

@@ -1,4 +1,4 @@
-import i18next, { init } from "i18next";
+import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import I18nextBrowserLanguageDetector from "i18next-browser-languagedetector";
 import intervalPlural from "i18next-intervalplural-postprocessor";
@@ -18,11 +18,11 @@ i18next
 
           header: {
             navbar: {
-              men: { _id: 0, title: "Чоловки", path: "/men", type: "desktop" },
+              men: { _id: 0, title: "Чоловки", path: "men", type: "desktop" },
               women: {
                 _id: 1,
                 title: "Жінки",
-                path: "/women",
+                path: "women",
                 type: "desktop",
               },
               kids: {
@@ -70,20 +70,34 @@ i18next
 
           userLogModal: {
             settings: {
-              account: { link: "#", title: "Мій аккаунт", id: 0 },
+              account: { link: "#", title: "Мій аккаунт", id: 0, to: "/" },
               orders: {
                 link: "#",
                 title: "Мої замовлення",
                 id: 1,
                 disabled: true,
+                to: "/",
               },
-              sales: { link: "#", title: "Мої знижки", id: 2, disabled: true },
-              refund: { link: "#", title: "Повернення", id: 3, disabled: true },
+              sales: {
+                link: "#",
+                title: "Мої знижки",
+                id: 2,
+                disabled: true,
+                to: "/",
+              },
+              refund: {
+                link: "#",
+                title: "Повернення",
+                id: 3,
+                disabled: true,
+                to: "/",
+              },
               settings: {
                 link: "#",
                 title: "Налаштування",
                 id: 4,
                 disabled: true,
+                to: "settings",
               },
             },
           },
@@ -108,6 +122,7 @@ i18next
           reviews: "Відгуки",
 
           signIn: "Увійти",
+          logOut: "Вийти",
           search: "Пошук",
           size: "Розмір",
           key1_interval:
@@ -123,11 +138,11 @@ i18next
 
           header: {
             navbar: {
-              men: { _id: 0, title: "Men", path: "/men", type: "desktop" },
+              men: { _id: 0, title: "Men", path: "men", type: "desktop" },
               women: {
                 _id: 1,
                 title: "Women",
-                path: "/women",
+                path: "women",
                 type: "desktop",
               },
               kids: {
@@ -198,22 +213,43 @@ i18next
 
           userLogModal: {
             settings: {
-              account: { link: "#", title: "My account", id: 0 },
-              orders: { link: "#", title: "My orders", id: 1, disabled: true },
+              account: { link: "#", title: "My account", id: 0, to: "/" },
+              orders: {
+                link: "#",
+                title: "My orders",
+                id: 1,
+                disabled: true,
+                to: "/",
+              },
               sales: {
                 link: "#",
                 title: "My discounts",
                 id: 2,
                 disabled: true,
+                to: "/",
               },
-              refund: { link: "#", title: "Return", id: 3, disabled: true },
-              settings: { link: "#", title: "Settings", id: 4, disabled: true },
+              refund: {
+                link: "#",
+                title: "Return",
+                id: 3,
+                disabled: true,
+                to: "/",
+              },
+              settings: {
+                link: "#",
+                title: "Settings",
+                id: 4,
+                disabled: true,
+                to: "settings",
+              },
             },
           },
 
           addToCart: "Add to cart!",
           reviews: "Reviews",
+
           signIn: "Sign In",
+          logOut: "Log Out",
 
           search: "Search",
           size: "Size",

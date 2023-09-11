@@ -1,0 +1,48 @@
+@mixin paginationButton($b, $c) {
+  margin: 0 5px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: $b;
+  color: $c;
+  transition: all 0.5s;
+  font-size: 16px;
+  padding: 6px;
+  width: 35px;
+  height: 35px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 25px;
+  flex-wrap: wrap;
+
+  &__item {
+    @include paginationButton(#939393, black);
+
+    &__disabled {
+      @include paginationButton(#5a5a5a, black);
+      cursor: default;
+    }
+
+    &:first-child {
+      transition: all 0.4s;
+      &:hover {
+        transform: translateX(-5px);
+      }
+    }
+    &:last-child {
+      transition: all 0.4s;
+      &:hover {
+        transform: translateX(5px);
+      }
+    }
+
+    &__active {
+      @include paginationButton(#fff, #000);
+    }
+    &:hover {
+      background: #969696;
+    }
+  }
+}

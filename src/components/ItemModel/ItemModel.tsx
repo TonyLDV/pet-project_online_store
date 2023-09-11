@@ -1,36 +1,52 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 import "./ItemModel.scss";
 import Wish from "../../icons/Wish";
-import { useAction } from "../../hooks/StoreHooks/useAction";
 import { useNavigate } from "react-router-dom";
+import {
+  useActions,
+  useAppSelector,
+} from "../../hooks/StoreHooksToolkit/toolkit";
+import { IShoes } from "../../store/types/shoes";
+import { IWish } from "../../store/types/wishlist";
+import { wishlistSelector } from "../../storeToolkit/slices/wishlistSlice";
 
 type PropsT = {
-  title: string;
-  url: string;
-  price: number;
-  id: number;
-  wish: boolean;
+  item: IShoes | IWish;
   imgSize?: boolean;
   onWishClick?: () => void;
 };
 
-const ItemModel: FC<PropsT> = ({ id, title, url, price, wish, imgSize }) => {
-  const { createWish, deleteWish, setWish } = useAction();
+const ItemModel: FC<PropsT> = ({ imgSize, item }) => {
+  const { wishlist } = useAppSelector(wishlistSelector);
+
+  const { fetchSingleShoes, getReviews } = useActions();
+
+  const [wish] = useState(
+    wishlist.find((element) => {
+      return element.id === item.id;
+    })
+  );
+
+  const { id, title, price, url } = item;
+
+  const { addWishlistItem, deleteWishlistItem } = useActions();
   const navigate = useNavigate();
 
-  const navigation = () => {
+  const navigation = async () => {
+    fetchSingleShoes(id);
+    getReviews({ id });
     navigate("" + id);
   };
 
-  const onWishClick = (event: any) => {
-    setWish(id);
+  const onWishClick = (event: React.MouseEvent) => {
     event.stopPropagation();
 
     {
-      !wish ? createWish({ url, price, title, id, wish }) : deleteWish(id);
+      wish ? deleteWishlistItem(item.id) : addWishlistItem({ ...item });
     }
   };
+
   return (
     <>
       <div className="product" key={id} onClick={navigation}>

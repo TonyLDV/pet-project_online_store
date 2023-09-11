@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import Loup from "../../icons/Loup";
 import Wish from "../../icons/Wish";
@@ -10,9 +10,16 @@ import UserLogModal from "../UserLogModal";
 import { useTranslation } from "react-i18next";
 import ShoppingBag from "../../icons/ShoppingBag";
 import { OutsideClick, useTheme } from "../../hooks";
-import { useTypesSelector } from "../../hooks/StoreHooks";
 
 import "./Header.scss";
+import SignPage from "../../views/SignPage";
+import {
+  useActions,
+  useAppSelector,
+} from "../../hooks/StoreHooksToolkit/toolkit";
+import { cartSelector } from "../../storeToolkit/slices/cartSlice";
+import { wishlistSelector } from "../../storeToolkit/slices/wishlistSlice";
+import { ShoesType } from "../../constants";
 
 type ILangs = {
   language: string;
@@ -35,19 +42,38 @@ const Header = () => {
 
   const { t, i18n } = useTranslation();
 
-  const [isWishlistModal, setIsWishlistModal] = useState(false);
-  const [isShowUserLogModal, setIsShowUserLogModal] = useState(false);
+  const [show, setShow] = useState<boolean>(true);
+  const [testOpen, setTestOpen] = useState<boolean>(false);
+  const [openSignUp, setOpenSignUp] = useState<boolean>(false);
+  const [isWishlistModal, setIsWishlistModal] = useState<boolean>(false);
+  const [isShowUserLogModal, setIsShowUserLogModal] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const { cart } = useAppSelector(cartSelector);
+  const { wishlist } = useAppSelector(wishlistSelector);
 
-  const { cart } = useTypesSelector((state) => state.cart);
-  const { wishlist } = useTypesSelector((state) => state.wishlist);
-
-  const [scrollValue, setScrollValue] = useState(0);
-
-  const [testOpen, setTestOpen] = useState(false);
+  const { setShoesType, fetchShoesToolkitByQuery } = useActions();
 
   const showSidebar = () => {
     setTestOpen(!testOpen);
   };
+
+  useEffect(() => {
+    let lastVal = 0;
+    if (typeof window !== "undefined") {
+      window.onscroll = function () {
+        if (window.scrollY > lastVal && window.scrollY > 65) {
+          setShow(false);
+        }
+        if (window.scrollY < lastVal) {
+          setShow(true);
+        }
+        if (window.scrollY == lastVal) {
+          return;
+        }
+        lastVal = window.scrollY;
+      };
+    }
+  }, []);
 
   const themeSwitcher = () => {
     theme == "light" ? setTheme("dark") : setTheme("light");
@@ -57,32 +83,22 @@ const Header = () => {
     returnObjects: true,
   });
 
-  /*useEffect(() => {
-    const onScroll = () => {
-      setScrollValue(window.scrollY);
-
-      window.scrollY > 20 &&   scrollValue < window.scrollY
-        ? setShowHeader(false)
-        : setShowHeader(true);
-    };
-
-    window.addEventListener("scroll", onScroll);
-
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [scrollValue]);*/
-
   useEffect(() => {
     document.body.style.overflow = !testOpen ? "visible" : "hidden";
   }, [testOpen]);
 
-  const [open, setOpen] = useState(false);
-
-  const handleClick = () => {
-    setOpen(!open);
+  const onNavClick = async (itemType: ShoesType) => {
+    setShoesType(itemType);
+    fetchShoesToolkitByQuery({
+      type: itemType,
+      reset: true,
+    });
+    navigate(itemType);
+    setTestOpen(false);
   };
 
   return (
-    <div className="header-container">
+    <header className={show ? "header-container" : "header-container--hidden"}>
       <div className="header">
         <div className="header__logo">
           <NavLink to={"/"}>
@@ -102,7 +118,7 @@ const Header = () => {
               : "header__navbar-container"
           }
         >
-          <div className={"header__navbar"}>
+          <div className="header__navbar">
             <div className="header__navbar__item-list">
               {Object.keys(navbar).map((nav) => (
                 <NavLink
@@ -120,22 +136,32 @@ const Header = () => {
               ))}
             </div>
 
-            <div className="header__navbar__options">
-              <div className="language-switcher__mob">
-                {Object.keys(lngs).map((lng) => (
-                  <button
-                    className={"header__language-switcher__item"}
-                    key={lng}
-                    type="submit"
-                    onClick={() => i18n.changeLanguage(lng)}
-                    disabled={i18n.resolvedLanguage === lng}
-                  >
-                    {lngs[lng].language}
-                  </button>
-                ))}
-              </div>
+            <div className="header__navbar__footer">
+              <button
+                className="header__navbar__footer__enter-btn"
+                onClick={() => setOpenSignUp(!openSignUp)}
+              >
+                Увійти
+              </button>
+              {openSignUp && <SignPage />}
 
-              <div className="theme-switcher__mob" onClick={themeSwitcher} />
+              <div className="header__navbar__options">
+                <div className="language-switcher__mob">
+                  {Object.keys(lngs).map((lng) => (
+                    <button
+                      className={"header__language-switcher__item"}
+                      key={lng}
+                      type="submit"
+                      onClick={() => i18n.changeLanguage(lng)}
+                      disabled={i18n.resolvedLanguage === lng}
+                    >
+                      {lngs[lng].language}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="theme-switcher__mob" onClick={themeSwitcher} />
+              </div>
             </div>
           </div>
         </div>
@@ -160,17 +186,20 @@ const Header = () => {
           <Loup />
         </div>
 
-        {/*<OutsideClick onOutsideClick={() => setIsShowUserLogModal(false)}>*/}
         <div className="header__btn-action acc">
-          <div onClick={() => setIsShowUserLogModal(!isShowUserLogModal)}>
+          <button
+            className="header__btn-action__icon"
+            onClick={() => setIsShowUserLogModal(!isShowUserLogModal)}
+          >
             <User />
-          </div>
+          </button>
 
-          <div className="userlog-drop">
-            {isShowUserLogModal && <UserLogModal />}
-          </div>
+          <OutsideClick onOutsideClick={() => setIsShowUserLogModal(false)}>
+            <div className="userlog-drop">
+              {isShowUserLogModal && <UserLogModal />}
+            </div>
+          </OutsideClick>
         </div>
-        {/*</OutsideClick>*/}
 
         <OutsideClick onOutsideClick={() => setIsWishlistModal(false)}>
           <div
@@ -199,7 +228,7 @@ const Header = () => {
           <span />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

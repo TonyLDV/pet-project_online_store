@@ -8,15 +8,17 @@
   path {
     fill: var(--text-color);
   }
-  &__hidden {
+  &--hidden {
     @extend .header-container;
-    transform: translateY(-100px);
+    position: sticky;
+    top: 0;
+    transform: translateY(-65px);
   }
 }
 
 .header {
   display: flex;
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
   align-items: center;
   min-height: 65px;
@@ -36,6 +38,12 @@
     z-index: 100;
   }
   &__navbar {
+    &__options {
+      display: none;
+    }
+    &__footer {
+      display: none;
+    }
     &__blur {
       display: none;
     }
@@ -64,6 +72,7 @@
     border: none;
     background: #f5f5f5;
     color: black;
+    width: 90%;
     padding-left: 25px;
     padding-right: 10px;
     font-size: 16px;
@@ -79,6 +88,7 @@
 
   &__search-group {
     position: relative;
+    width: 15%;
     path {
       fill: black;
     }
@@ -106,8 +116,10 @@
     height: 36px;
     width: 36px;
     margin: 0 15px;
-    cursor: pointer;
     position: relative;
+    &__icon {
+      cursor: pointer;
+    }
     &:hover {
       border-radius: 50%;
       background: var(--header-icon_hover-background);
@@ -152,9 +164,6 @@
   }
 }
 .language-switcher {
-  &__mob {
-    display: none;
-  }
   &__item {
     font-size: 16px;
   }
@@ -236,6 +245,21 @@
       flex-direction: column;
       justify-content: space-between;
       overflow-y: scroll;
+
+      &__footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &__enter-btn {
+          background: var(--text-color);
+          color: var(--list-background);
+          font-size: 18px;
+          width: 65%;
+          padding: 15px;
+          border-radius: 12px;
+        }
+      }
 
       &__options {
         margin: 20px auto;

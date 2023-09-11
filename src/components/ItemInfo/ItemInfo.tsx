@@ -2,29 +2,35 @@ import React, { useEffect, useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-import Slider from "../Slider";
 import Reviews from "../Reviews";
 import Wish from "../../icons/Wish";
 import { sizes } from "../../constants";
 import { useParams } from "react-router-dom";
 import ShoesSizeFilter from "../ShoesSizeFilter";
 import SuccessfulAddModal from "../SuccessfulAddModal";
-import { useTypesSelector } from "../../hooks/StoreHooks";
-import { useAction } from "../../hooks/StoreHooks/useAction";
 
 import "./ItemInfo.scss";
 import SlideSwiper from "../SlideSwiper";
 import { useTranslation } from "react-i18next";
+import {
+  useActions,
+  useAppSelector,
+} from "../../hooks/StoreHooksToolkit/toolkit";
+import { Modal } from "@mui/material";
+import { shoesSelector } from "../../storeToolkit/slices/shoesSlice";
+import { reviewsSelector } from "../../storeToolkit/slices/reviewsSlice";
 
 const ItemInfo = () => {
-  const [size, setSize] = useState(0);
-  const [regionSize, setRegionSize] = useState("eu");
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [size, setSize] = useState<number>(0);
+  const [modalItem, setModalItem] = useState<string>("");
+  const [regionSize, setRegionSize] = useState<string>("eu");
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const { setSelected, createCart, createWish, deleteWish, setWish } =
-    useAction();
+  const { fetchSingleShoes, addCartItem } = useActions();
 
-  const { selectedShoes } = useTypesSelector((state) => state.shoes);
+  const { selectedShoes, loading } = useAppSelector(shoesSelector);
+  const { reviews } = useAppSelector(reviewsSelector);
 
   const params = useParams();
   const paramsId = parseInt(params.id as string);
@@ -42,7 +48,11 @@ const ItemInfo = () => {
   }
 
   useEffect(() => {
-    setSelected(paramsId);
+    if (!selectedShoes.title) {
+      fetchSingleShoes(paramsId);
+    }
+
+    window.scrollTo(0, 0);
   }, []);
 
   const onSizeClick = (size: number) => {
@@ -55,32 +65,39 @@ const ItemInfo = () => {
       createWish(selectedShoes);
     }*/
     /* setIsSuccess(false);*/
-    console.log(isSuccess);
   };
 
   const onAddCartClick = () => {
     const bucketId = uuidv4();
     if (size > 0) {
-      createCart({ ...selectedShoes, size, bucketId });
+      addCartItem({ ...selectedShoes, size, bucketId });
       setIsSuccess(true);
     } else {
       return alert("Для початку , потрібно обрати розмір!");
     }
   };
 
+  const onImageClick = (img: string) => {
+    setIsModalOpen(!isModalOpen);
+    setModalItem(img);
+  };
+
   const handleClose = (state: boolean) => {
-    console.log(state, state);
     setIsSuccess(state);
   };
 
-  if (selectedShoes) {
+  if (loading) {
+    return <div>Loading....</div>;
+  }
+
+  if (!loading && selectedShoes) {
     return (
       <div className="item-info__container">
         <div className="item-info__container__content">
           <div className="item-info__container__left">
             <div className="item-info__grid">
               {itemImages.map(({ id, img }) => (
-                <div key={id}>
+                <div key={id} onClick={() => onImageClick(img)}>
                   <img className="item-info__img" src={img} alt="" />
                 </div>
               ))}
@@ -157,9 +174,20 @@ const ItemInfo = () => {
               </div>
             </div>
 
-            <Reviews />
+            <Reviews reviews={reviews} />
           </div>
         </div>
+
+        <Modal
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <div className="item-info__modal">
+            <img className="item-info__modal__item" src={modalItem} alt="" />
+          </div>
+        </Modal>
       </div>
     );
   } else {

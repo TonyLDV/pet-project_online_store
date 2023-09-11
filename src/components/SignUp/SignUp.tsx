@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, useEffect } from "react";
 
 import "./SignUp.scss";
 
@@ -7,14 +7,46 @@ import { Formik } from "formik";
 import GoogleIcon from "../../icons/GoogleIcon";
 import FaceBookIcon from "../../icons/FaceBookIcon";
 import { useTranslation } from "react-i18next";
+import { v4 as uuidv4 } from "uuid";
+import {
+  useActions,
+  useAppSelector,
+} from "../../hooks/StoreHooksToolkit/toolkit";
+import { userSelector } from "../../storeToolkit/slices/usersSlice";
 
 const signUpOptions = [
   { title: "Google", id: 0, logo: <GoogleIcon /> },
   { title: "FaceBook", id: 1, logo: <FaceBookIcon /> },
 ];
 
-const SignUp = () => {
+type PropsT = {
+  onSignUpClick: () => void;
+};
+
+const SignUp: FC<PropsT> = ({ onSignUpClick }) => {
   const { t } = useTranslation();
+  const { postUser, resetError } = useActions();
+
+  const { auth, error } = useAppSelector(userSelector);
+
+  useEffect(() => {
+    if (error) {
+      alert(error);
+      resetError();
+    }
+    if (auth) {
+      alert("Ви успішно зареєструвалися!");
+      onSignUpClick();
+    }
+  }, [error, auth]);
+
+  const userCreate = (values: object) => {
+    const userId = uuidv4();
+
+    const user = { ...values, userId };
+    postUser({ user });
+  };
+
   const validationsSchema = yup.object().shape({
     email: yup
       .string()
@@ -24,13 +56,11 @@ const SignUp = () => {
       .string()
       .min(8, `${t("logInPage.requiredMin")}`)
       .required(`${t("logInPage.required_plus")}`)
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-        `${t("logInPage.required_eng")}`
-      ),
+      .matches(/[a-zA-Z]/, `${t("logInPage.required_eng")}`),
     name: yup.string().required(`${t("logInPage.required")}`),
     surname: yup.string().required(`${t("logInPage.required")}`),
   });
+
   return (
     <Formik
       initialValues={{
@@ -40,11 +70,10 @@ const SignUp = () => {
         surname: "",
       }}
       validationSchema={validationsSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        setSubmitting(false);
+        userCreate(values);
+        resetForm();
       }}
     >
       {({

@@ -145,7 +145,7 @@ export enum Selectors {
 
 const ShoesFilter = () => {
   const [shoesFilter, setShoesFilter] = useState(filter);
-  const [regionSize, setRegionSize] = useState("eu");
+  const [regionSize, setRegionSize] = useState<string>("eu");
 
   const onDetailsClick = (posts: any, postId: number, open: boolean) => {
     setShoesFilter((prevState: any) =>

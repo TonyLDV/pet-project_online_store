@@ -1,0 +1,50 @@
+.footer {
+  min-height: 100px;
+  border-top: 2px solid #7a7a7a;
+  display: flex;
+  width: 100%;
+  path {
+    fill: var(--text-color);
+  }
+}
+.footerContainer {
+  width: 75%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.optionsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4em;
+  color: var(--text-color);
+  & > button {
+    font-size: 17px;
+    color: var(--text-color);
+  }
+}
+
+.linksContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+}
+
+@media (max-width: 767px) {
+  .footerContainer {
+    display: block;
+    justify-content: center;
+  }
+  .optionsContainer {
+    margin-top: 25px;
+    gap: 2em;
+  }
+  .linksContainer {
+    margin-top: 25px;
+    gap: 1em;
+  }
+}

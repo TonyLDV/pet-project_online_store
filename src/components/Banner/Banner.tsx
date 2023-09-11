@@ -1,8 +1,7 @@
 import React from "react";
 
-import "./Banner.scss";
-import Slider from "../Slider";
 import SlideSwiper from "../SlideSwiper";
+import styles from "./Banner.module.scss";
 
 const dataSlider = [
   {
@@ -22,7 +21,7 @@ const dataSlider = [
 
 const Banner = () => {
   return (
-    <div className="banner-container">
+    <div className={styles.bannerContainer}>
       <SlideSwiper slides={dataSlider} delay={5000} sliderType="text" />
     </div>
   );

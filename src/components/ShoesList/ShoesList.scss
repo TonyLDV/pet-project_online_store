@@ -8,6 +8,24 @@
   color: var(--text-color);
   &__title {
     font-size: 20px;
+    display: flex;
+    align-items: center;
+
+    &__input {
+      font-size: 16px;
+      margin-left: 40px;
+      height: 40px;
+      width: 100%;
+      border-radius: 18px;
+      padding: 0 12px;
+      &:hover {
+        background: #e0e0e0;
+      }
+      &:focus {
+        background: #e0e0e0;
+        outline: none;
+      }
+    }
   }
   &__icon {
     display: flex;
@@ -24,11 +42,12 @@
     &__item {
       display: flex;
       align-items: center;
-      padding: 10px 8px;
+      padding: 10px;
       border: 2px solid var(--text-color);
       border-radius: 16px;
+      white-space: nowrap;
       &:first-child {
-        margin-right: 1%;
+        margin-right: 4%;
       }
     }
   }
@@ -37,23 +56,28 @@
 .shoes-container {
   display: flex;
   width: 100%;
-  margin: 0 auto;
+}
+
+.shoes-list-container {
   background: var(--list-background);
+  margin: 0 auto;
+  min-height: calc(100vh - 125px);
+  margin-bottom: 15px;
 }
 
 .content-col-left {
   width: 15%;
   height: 100%;
   bottom: 0;
-  position: sticky;
   transform: translateX(0);
   transition: 0.8s;
   opacity: 1;
 
   &__disable {
     transform: translateX(-120%);
-    transition: 0.8s;
-    visibility: hidden;
+    transition: 0.33s;
+    /*visibility: hidden;*/
+    position: fixed;
     width: 0;
     opacity: 0;
   }
@@ -149,9 +173,11 @@
     border-bottom: 1px solid #e5e5e5;
     border-top: 1px solid #e5e5e5;
     margin-bottom: 20px;
-    padding: 15px 25px;
+    padding: 15px 8px;
     &__icon {
       display: flex;
+      width: 100%;
+      justify-content: space-between !important;
       &__item {
         display: flex;
         justify-content: space-between;
@@ -161,7 +187,6 @@
         min-width: 165px;
         &:last-child {
           min-width: 100px;
-          margin-left: 40px;
         }
       }
       &__sort {

@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 
-import "./ButtonCount.scss";
+import styles from "./ButtonCount.module.scss";
 
 type PropsT = {
   count: number;
 };
 
 const ButtonCount: FC<PropsT> = ({ count }) => {
-  return <div className="btn-count">{count}</div>;
+  return <div className={styles.btnCount}>{count}</div>;
 };
 
 export default ButtonCount;

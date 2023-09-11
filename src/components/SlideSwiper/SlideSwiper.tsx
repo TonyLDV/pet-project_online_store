@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useRef } from "react";
 import { Swiper as SwiperType, Autoplay, Navigation, Thumbs } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -65,9 +65,11 @@ const SlideSwiper: FC<PropsT> = ({ slides, delay, sliderType }) => {
               <img
                 className="swiper-img-background"
                 src={restProps.img}
-                alt=""
+                alt={restProps.text}
               />
-              <img src={restProps.src} alt="" />
+
+              <img src={restProps.src} alt={restProps.text} />
+
               <div className="swiper-img__text"> {restProps.text}</div>
             </SwiperSlide>
           ))}

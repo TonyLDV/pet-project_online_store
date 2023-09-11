@@ -25,7 +25,7 @@ export const wishlistReducer = (
       if (duplicates.length === 0) {
         return {
           ...state,
-          wishlist: state.wishlist.concat({ ...payload, wish: true }),
+          wishlist: state.wishlist.concat({ ...payload }),
         };
       }
       return state;

@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./MultiLang/i18n";
 
 import "./App.scss";
+import Footer from "./components/Footer";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -30,6 +31,8 @@ function App() {
       <Banner />
 
       <AppRouter />
+
+      <Footer />
     </BrowserRouter>
   );
 }

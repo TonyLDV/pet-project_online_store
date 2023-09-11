@@ -1,5 +1,6 @@
 import { CartActionTypes } from "../types/cart";
 import { LocalStorageKey, storage } from "../../LocaleStorage";
+import axios from "axios";
 
 export function createCart(item: any) {
   const storageResults = storage.multipleGetItems([
@@ -31,6 +32,14 @@ export function createCart(item: any) {
     localStorage.setItem("cart", JSON.stringify(cart));
     localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
   }
+
+  const shoppingUrl = new URL(
+    "https://645141a8e1f6f1bb22ac663f.mockapi.io/shoppinginfo"
+  );
+
+  axios.put("https://645141a8e1f6f1bb22ac663f.mockapi.io/shoppinginfo/1", {
+    "antonyqtz@gmail.com": "hello world",
+  });
 
   return {
     type: CartActionTypes.CREATE_CART,

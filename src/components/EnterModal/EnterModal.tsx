@@ -23,7 +23,8 @@ const EnterModal: FC<PropsT> = ({ setOpener }) => {
       aria-describedby="modal-modal-description"
     >
       <div className="enter-modal">
-        <div>Привіт , ласкаво промо до магазну Jzor Shop</div>
+        <div>Привіт , ласкаво промо до магазну GGWP Shop</div>
+
         <div className="enter-modal__access-btn" onClick={setAuth}>
           Розпочати
         </div>

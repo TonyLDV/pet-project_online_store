@@ -3,12 +3,11 @@ export interface WishlistState {
   loading: boolean;
   error: null | string;
 }
-interface IWish {
+export interface IWish {
   id: number;
   price: number;
   title: string;
   url: string;
-  wish: boolean;
   size?: number;
   _id?: number;
 }

@@ -1,35 +1,23 @@
-import React, { useEffect, FC } from "react";
+import React, { FC } from "react";
 
-import ShoesList from "../../components/ShoesList";
-
-import { useAction } from "../../hooks/StoreHooks/useAction";
-import { useTypesSelector } from "../../hooks/StoreHooks";
 import { ShoesType } from "../../constants";
+import ShoesList from "../../components/ShoesList";
 
 type PropsT = {
   type?: ShoesType;
 };
 
 const SwitchGenderTemplate: FC<PropsT> = ({ type }) => {
-  const { shoes } = useTypesSelector((state) => state.shoes);
-  const { fetchShoes } = useAction();
-
-  useEffect(() => {
-    fetchShoes();
-  }, []);
-
-  const newShoes = shoes.filter(({ type: shoesType }) => type === shoesType);
-
   if (!type) {
     return null;
   }
 
   switch (type) {
     case ShoesType.MEN: {
-      return <ShoesList wallHeaderTitle="Чоловічі" items={newShoes} />;
+      return <ShoesList wallHeaderTitle="Чоловічі" itemType={type} />;
     }
     case ShoesType.WOMEN: {
-      return <ShoesList wallHeaderTitle="Жіночі" items={newShoes} />;
+      return <ShoesList wallHeaderTitle="Жіночі" itemType={type} />;
     }
   }
 };
